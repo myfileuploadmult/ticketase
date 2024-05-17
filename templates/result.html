@@ -11,11 +11,33 @@
       crossorigin="anonymous"
     />
     <style>
-      td {
+      td,
+      th {
         vertical-align: middle;
+        text-align: center;
       }
       #table_container {
         overflow-x: auto;
+        white-space: nowrap;
+      }
+      .table th:first-child,
+      .table td:first-child {
+        position: sticky;
+        left: 0;
+        white-space: normal !important;
+      }
+      .table th {
+        background-color: #fff9d0;
+        color: black;
+      }
+      #station_combo_header {
+        background-color: #dff5ff;
+      }
+      thead {
+        box-shadow: 0px 2px 18px 0px rgba(0, 0, 0, 0.5);
+      }
+      .train_card {
+        overflow: hidden;
       }
     </style>
   </head>
@@ -32,10 +54,13 @@
       </h3>
       {% endif %} {% for train in result %}
       <div class="row justify-content-center">
-        <div class="card col col-lg-10 my-2 shadow mx-4 p-4" id="train_details">
-          <h4>{{train}}</h4>
+        <div
+          class="card col col-lg-10 my-3 shadow mx-4 px-0 py-0 train_card"
+          id="train_details"
+        >
+          <h4 class="mx-4 my-4 text-center">{{train}}</h4>
           <div id="table_container">
-            <table class="table table-striped">
+            <table class="table table-striped table-bordered my-0">
               <thead>
                 <tr>
                   {% for header in headers %}
@@ -46,12 +71,12 @@
               <tbody>
                 {% for combo in result[train]['available_seats'] %}
                 <tr>
-                  <th scope="row">
+                  <th scope="row" id="station_combo_header">
                     {{ combo['from_city'] }} -> {{ combo['to_city'] }}
                   </th>
                   {% for i in range(1, 9) %}
                   <td
-                    class="{% if combo['seat_types'][i]['seat_counts'] > 0 %}text-white{% endif %}"
+                    class="{% if combo['seat_types'][i]['seat_counts'] > 0 %}text-white text-bold{% endif %}"
                     style="{% if combo['seat_types'][i]['seat_counts'] > 0 %}background-color: #50C878;{% endif %}"
                   >
                     {{ combo['seat_types'][i]['seat_counts'] }} (&#2547;{{
