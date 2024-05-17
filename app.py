@@ -60,7 +60,7 @@ all_station_list = ['Abdulpur', 'Ahsanganj', 'Akhaura', 'Akkelpur', 'Alamdanga',
 for seat in const_seat_types:
     # table_header += f"\t {const_seat_types[seat]['type']}"
     table_headers_list.append(const_seat_types[seat]['type'])
-
+table_headers_list.append("Buy")
 
 def getStationListByTrainCode(train_id):
     url = 'https://railspaapi.shohoz.com/v1.0/web/train-routes'

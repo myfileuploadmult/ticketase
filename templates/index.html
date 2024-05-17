@@ -44,7 +44,7 @@
         <form
           action="/"
           method="post"
-          class="col col-lg-6 card px-4 py-5 shadow mx-4"
+          class="col col-lg-4 card px-4 py-5 shadow mx-4"
         >
           <h2 class="text-center mb-4 mt-1 title-big">টিকিট আছে মামা?</h2>
           <!-- <div class="form-group mb-3 border rounded">
@@ -57,7 +57,10 @@
               required
             />
           </div> -->
-          <div class="form-group mb-3 border rounded">
+          <label for="journey_date_input_field" class="font-weight-bold"
+            >&nbsp;From station:</label
+          >
+          <div class="form-group mb-2 border rounded">
             <select
               class="js-example-basic-single form-control"
               name="from_city"
@@ -69,6 +72,8 @@
               {% endfor %}
             </select>
           </div>
+
+          <label for="journey_date_input_field">&nbsp;To station:</label>
           <div class="form-group mb-2 border rounded">
             <select
               class="js-example-basic-single form-control"
@@ -92,7 +97,7 @@
             />
           </div> -->
           <label for="journey_date_input_field">&nbsp;Journey Date:</label>
-          <div class="form-group mb-3 border rounded">
+          <div class="form-group mb-5 border rounded">
             <input
               name="journey_date"
               class="form-control"
@@ -102,9 +107,11 @@
               type="date"
             />
           </div>
-          <button type="submit" class="btn btn-primary w-100 py-2">
-            Search
-          </button>
+          <center>
+            <button type="submit" class="btn btn-primary w-75 py-2">
+              Search
+            </button>
+          </center>
         </form>
         {% endblock %}
       </div>
@@ -212,7 +219,27 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
       $(document).ready(function () {
+        function formatDate(addDays) {
+          var dtToday = new Date();
+          dtToday.setDate(dtToday.getDate() + addDays);
+
+          var month = dtToday.getMonth() + 1;
+          var day = dtToday.getDate();
+          var year = dtToday.getFullYear();
+
+          if (month < 10) month = "0" + month.toString();
+          if (day < 10) day = "0" + day.toString();
+
+          var maxDate = year + "-" + month + "-" + day;
+          return maxDate;
+        }
+
         $(".js-example-basic-single").select2();
+
+        //date max
+        $("#journey_date_input_field").attr("max", formatDate(10));
+        $("#journey_date_input_field").attr("min", formatDate(0));
+        console.log(maxDate);
       });
     </script>
   </body>
